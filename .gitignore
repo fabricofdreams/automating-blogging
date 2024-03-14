@@ -1,0 +1,7 @@
+.env
+/outputs
+/archive
+.vscode
+__pycache__
+youtube_video_details_tool.py
+youtube_video_search_tool.py
