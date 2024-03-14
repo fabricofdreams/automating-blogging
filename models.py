@@ -1,6 +1,5 @@
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
@@ -8,6 +7,7 @@ load_dotenv()
 
 
 class LargeLanguageModel():
+    """API LLMs services"""
 
     def chat_Openai(self, temp: int):
         return ChatOpenAI(

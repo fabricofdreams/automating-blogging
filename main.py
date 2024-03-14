@@ -32,7 +32,7 @@ spanish_translator = agents.post_translator(openai35)
 
 
 # Determine blog post topic
-post_topic = "Artists and technologists are collaborating to push the boundaries of creativity."
+post_topic = "Video generation with AI."
 
 # Tasks
 manage_blog_post_creation = tasks.manage_blog_post_creation(

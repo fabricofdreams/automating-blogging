@@ -15,38 +15,49 @@ class BlogPostAutomationTasks():
             4. Translating the blog post from English to Spanish.
             
             The primary objective is to produce a professional blog post in Spanish that attracts 
-            a high number of clicks.
+            a high number of clicks. The post should have three main sections: introduction, body and conclusions.
             
             The subject of the post is: {post_topic}.
             
             It is crucial to guarantee that the English version of the post is accurately translated, 
             resulting in a Spanish version that closely mirrors the original content.
+            
+            Important notes:
+            - The body section of the post should be at least 7 paragraphs and 2,500 words long.
+            - The ideas for the title MUST BE CREATED BASED on the findings from the web search..
+            - The blog post MUST BE CREATED BASED on the ideas for the title and the web search.
             """),
             agent=agent,
-            expected_output="A report with the list of findings from the web search.",
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_creation.md"
+            expected_output="There is no output expected."
+            # output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_creation.md"
         )
 
     def manage_websearch(self, agent, post_topic):
         return Task(
             description=dedent(f"""
-            For a given post topic, search for posts, or studies, or researches or news to find 15 websites/blogs including the topic. 
-            Once you have found the websites/blogs, make sure you include the title, url and snippet before delegating tasks to other agents.
-                        
-            This research CSV which will be used by other agents to help them generate titles and other aspects of the new blog post 
-            that we are planning to create.
-                        
-            Research CSV Outline:
+            For a given post topic, search for posts, or studies, or researches or news or youtube videos 
+            to find 15 sources of information or web sites that include the topic.
+            
+            The goal is to create a Research Report in a CSV format.
+            
+            Research Report CSV Outline:
             - Title of the content source
             - URL of the website
             - Snippet
+            
+            Once you have found the 15 sources, make sure you include the title, url and snippet in the 
+            Research Report before delegating tasks to other agents.
+                        
+            This Research Report CSV file will be used by other agents to help them generate titles and other aspects 
+            of the new blog post that we are planning to create.
                 
             The post topic is: {post_topic}
 
             Important Notes: 
-            - Make sure the CSV uses ',' as the delimiter.
-            - Make sure the final Research CSV Outline doesn't contain duplicate sources.
-            - It is SUPER IMPORTANT that you only populate the research CSV with URLs that actually link to the website.
+            - Make sure the CSV file uses ',' as the delimiter.
+            - Make sure the final Research Report CSV Outline doesn't contain duplicate sources.
+            - It is SUPER IMPORTANT that you only populate the research report CSV with URLs that 
+            actually link to the website.
             """),
             agent=agent,
             expected_output=dedent(f"""
@@ -55,58 +66,22 @@ class BlogPostAutomationTasks():
             Exercise and Lung Health | American Lung Association, https://www.lung.org/lung-health-diseases/wellness/exercise-and-lung-health, Physical activity can reduce your risk of serious illness, including heart disease, stroke, diabetes and some forms of cancer, including lung ...        
                 ...
             """),
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_websearch.csv"
-        )
-
-    def manage_youtube_search(self, agent, post_topic):
-        return Task(
-            description=dedent(f"""For a given video topic, search youtube videos to find 
-                15 high-performing YouTube videos on the same topic. Once you have found the videos, 
-                research the YouTube video details to finish populate the missing fields in the 
-                research CSV. When delegating tasks to other agents, make sure you include the 
-                URL of the video that you need them to research.
-                            
-                This research CSV which will be used by other agents to help them generate titles 
-                and other aspects of the new YouTube video that we are planning to create.
-                               
-                Research CSV Outline:
-                - Title of the video
-                - View count
-                - Days since published
-                - Channel subscriber count
-                - Video URL
-                       
-                The video topic is: {post_topic}
-                
-
-                Important Notes: 
-                - Make sure the CSV uses ; as the delimiter
-                - Make sure the final Research CSV Outline doesn't contain duplicate videos
-                - It is SUPER IMPORTANT that you only populate the research CSV with real YouTube videos 
-                    and YouTube URLs that actually link to the YouTube Video.
-                """),
-            agent=agent,
-            expected_output=dedent(f"""
-                Video Title; View Count; Days Since Published; Channel Subscriber Count; Video URL
-                How to Make a YouTube Video; 100,000; 30; 1,000; https://www.youtube.com/watch?v=1234;
-                How to Get Your First 1000 Subscribers; 100,000; 30; 1,000; https://www.youtube.com/watch?v=1234;
-                       ...              
-                """),
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H-%M')}_post_youtube_search.csv"
+            output_file=f"outputs/{datetime.now().strftime('%m-%d_%H:%M')}_post_websearch.csv"
         )
 
     def manage_title_creation(self, agent, post_topic):
         return Task(
-            description=dedent(f"""Create 10 potential titles for a given post topic. 
-                It is also very important to use researched videos to help you generate the post titles.
+            description=dedent(f"""Generate 10 possible titles for a specified post topic using 
+                the Research Report CSV provided by the Web Research Manager.
+                
                 The titles should be less than 70 characters and should have a high click-through-rate.
                                
                 The post Topic: {post_topic}
                 
-                Be sure to create a CSV file taht uses comma as delimiter.
+                Be sure to create a CSV file that uses ',' as delimiter.
                 """),
             agent=agent,
-            expected_output=dedent(f"""A CSV file such this
+            expected_output=dedent(f"""A CSV file such as this
                 Number, Title
                 1, Revolutionizing Education: The Impact of AI
                 2, AI in Education: A Game-Changer for Learning
@@ -120,31 +95,38 @@ class BlogPostAutomationTasks():
                 10, Adapting to Change: AI's Influence on the Education Sector
                 ...
             """),
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_titles.csv"
+            output_file=f"outputs/{datetime.now().strftime('%m-%d_%H:%M')}_post_titles.csv"
         )
 
     def manage_post_writing(self, agent, post_topic):
         return Task(
-            description=dedent(f"""
-            Write a well-structured, engaging and compelling blog post that resonates with our audience and drives engagement.
-            Make sure that the content is formatted according to the guide specified below and the topic is {post_topic}.
+            description=dedent(f"""Write a well-structured, engaging and compelling blog post that resonates 
+            with our audience and drives engagement.
+            
+            The topic is {post_topic}.
+            
+            The 10 titles provided by the Title Creator and the 15 sources of research MUST BE used and consulted
+            in order to create the content of the blog post.
 
             When it comes to writing a blog post, there are several key elements to consider in order to create 
-            a well-structured and engaging piece. 
-            
-            Here is a general format you can follow for a regular blog post:
+            a well-structured and engaging piece. Here is a general format you can follow for a regular blog post:
 
             -Title: Start with a catchy and descriptive title that grabs the reader's attention and gives them an idea 
             of what the post is about.
+            
             -Introduction: Begin with an engaging introduction that sets the tone for the rest of the post. Clearly state 
             what the post will cover and why it is relevant to the reader.
+            
             -Body: The body of your blog post should be divided into sections or paragraphs that flow logically and provide 
             valuable information or insights. Each paragraph MUST be no less than 2500 words long. Use subheadings to break up 
             the text and make it easier to read. This MUST BE the longest part of the post.
+            
             -Key Points: Highlight key points or takeaways throughout the post to help readers easily grasp the main ideas.
+            
             -Conclusion: Summarize the main points of your post in the conclusion and reiterate its significance. You can also 
             pose a question or encourage discussion to engage readers further.
-            -Include a clear call-to-action at the end of your post, prompting readers to engage further with your content, 
+            
+            Include a clear call-to-action at the end of your post, prompting readers to engage further with your content, 
             such as subscribing to your blog, leaving a comment, sharing the post on social media, or exploring 
             related resources.
             """),
@@ -229,7 +211,7 @@ class BlogPostAutomationTasks():
             Stay tuned for more updates on the latest advancements in language models and how they are shaping the future of AI. 
             Thank you for joining us on this journey through the world of open source language innovations.
                         """),
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_writing.md"
+            output_file=f"outputs/{datetime.now().strftime('%m-%d_%H:%M')}_post_writing.md"
         )
 
     def spanish_translation(self, agent, post_topic):
@@ -244,5 +226,5 @@ class BlogPostAutomationTasks():
             agent=agent,
             expected_output=dedent(
                 f"""A markdown file with translation into Spanish of the original Post created."""),
-            output_file=f"outputs/{datetime.now().strftime('%m-%d-%Y_%H:%M')}_post_spanish.md"
+            output_file=f"outputs/{datetime.now().strftime('%m-%d_%H:%M')}_post_spanish.md"
         )
