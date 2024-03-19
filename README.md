@@ -1,6 +1,20 @@
 # Blog Automation Crew
 
-This project aims to automate the process of generating blog posts on a given topic using artificial intelligence (AI) agents. The system utilizes various language models and tools to assist in different stages of the blog post creation process.
+## Overview
+
+The Blog Post Automation App streamlines the process of generating and managing blog content by automating the retrieval and organization of web search results and titles. It supports content in both English and Spanish, providing a user-friendly interface to input topics, view search results, and read content drafts directly within the app.
+
+## Features
+
+- **Automated Searches**: Based on the input topic, the app performs web searches, collecting relevant titles and content.
+
+- **Content Preview**: Users can preview the search results and read content drafts in English and Spanish.
+
+- **Data Organization**: Search results and drafts are organized into CSV and Markdown files, respectively, for easy access and further processing.
+
+- **Data Organization**: Search results and drafts are organized into CSV and Markdown files, respectively, for easy access and further processing.
+
+- **Downloadable Results**: The app provides functionality to download the search results and drafts directly from the interface.
 
 ## Getting Started
 
@@ -13,7 +27,8 @@ Clone the repository and install the dependencies using pip:
 ```bash
 git clone https://github.com/your_username/your_project.git
 cd your_project
-pip install -r requirements.txt
+poetry install
+poetry shell
 ```
 
 ### Configuration
@@ -25,11 +40,17 @@ Before running the code, make sure to set up your environment variables by creat
 API_KEY=your_api_key
 ```
 
-## Usage
+## Run the Application
 
-The core functionality of the project is encapsulated in the `crewai` module, specifically in the `Crew` class, which orchestrates the activities of various agents and tasks. The `Crew` class takes agents, tasks, and a process type as input to execute the desired automation.
+Start the app by running:
+
+```
+   streamlit run app.py
+```
 
 ## Modules
+
+The core functionality of the project is encapsulated in the `crewai` module, specifically in the `Crew` class, which orchestrates the activities of various agents and tasks. The `Crew` class takes agents, tasks, and a process type as input to execute the desired automation.
 
 ### Agents
 
@@ -39,11 +60,25 @@ The core functionality of the project is encapsulated in the `crewai` module, sp
 
 - **BlogPostAutomationTasks**: Defines tasks related to managing the creation of blog posts, including managing blog post creation, web search, title creation, post writing, and post translation.
 
+## Usage
+
+### Start the App
+
+Open the app in your web browser
+
 ### Define the blog post topic
 
 ```
 post_topic = "Video generation with AI."
 ```
+
+## View Results
+
+Use the chat input to enter a topci your're interested in.
+
+## Download Files and Copy Paste
+
+Use the download buttons to save the tables to your local machine and copy and paste the drafts.
 
 ## Contributing
 
@@ -52,3 +87,9 @@ Contributions are welcome! Feel free to open issues or pull requests for any imp
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+Fernando Robledo - @frobledo - fernando.robledoruiz@gmail.com
+
+Project Link: [https://github.com/yourusername/blog-post-automation-app](https://github.com/yourusername/blog-post-automation-app)
