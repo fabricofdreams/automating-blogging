@@ -6,5 +6,3 @@ youtube_video_details_tool.py
 youtube_video_search_tool.py
 count_words_tool.py
 .DS_Store
-*.csv
-*.md
