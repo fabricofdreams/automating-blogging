@@ -1,5 +1,7 @@
 import os
 import glob
+import streamlit as st
+import pandas as pd
 
 
 def get_links(suffix_file, folder_path):
@@ -24,3 +26,20 @@ def read_md_file(file_path):
             return md_content
         else:
             return ""
+
+
+def display_file_with_url(folder_path: str, output_files: [], extension: str):
+    for output_file in output_files:
+        output_file_link = get_links(output_file, folder_path)
+
+        if output_file_link:
+            if extension == 'csv':
+                with st.chat_message("AI"):
+                    url = os.getcwd() + output_file_link + '.' + extension
+                    df = pd.read_csv(url, sep=';', header=0)
+                    st.dataframe(df)
+            else:
+                with st.chat_message("AI"):
+                    url = os.getcwd() + output_file_link + '.' + extension
+                    html_file = read_md_file(url)
+                    st.markdown(html_file)

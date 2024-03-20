@@ -1,6 +1,6 @@
 import streamlit as st
 from crew.main import write_post
-from get_files import get_links, read_md_file
+from manage_files import display_file_with_url
 import pandas as pd
 import os
 
@@ -20,29 +20,10 @@ st.info("Write the topic and hit run.")
 if topic is not None:
 
     with st.spinner("Processing..."):
-        write_post(topic)
+        # write_post(topic)
 
         with st.chat_message("user"):
             st.write(topic)
 
-        for csv_file in csv_files:
-            csv_file_link = get_links(csv_file, folder_path)
-
-            if csv_file_link:
-                keyword = (lambda x: x.split('_')[1])(csv_file)
-
-                with st.chat_message("AI"):
-                    url = os.getcwd() + csv_file_link + '.csv'
-                    df = pd.read_csv(url, sep=';', header=0)
-                    st.dataframe(df)
-
-        for md_file in md_files:
-            md_file_link = get_links(md_file, folder_path)
-
-            if md_file_link:
-                keyword = (lambda x: x.split('_')[1])(md_file)
-
-                with st.chat_message("AI"):
-                    url = os.getcwd() + md_file_link + '.md'
-                    html_file = read_md_file(url)
-                    st.markdown(html_file)
+        display_file_with_url(folder_path, csv_files, 'csv')
+        display_file_with_url(folder_path, md_files, 'md')
